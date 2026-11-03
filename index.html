@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="禁忌账本">
-  <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2851/2851875.png">
   <meta name="theme-color" content="#c41e3a">
   <style>
     * {
@@ -731,7 +731,7 @@
     }
 
     .plan-input-group button:hover {
-      background: #e02a4a;
+      filter: brightness(1.2);
     }
 
     .hidden {
@@ -912,19 +912,18 @@
               </div>
             </div>
             <div class="plan-input-group">
-              <input type="number" id="saveAmountInput" placeholder="金额" min="0" step="10">
-              <!-- 新增取出按钮 -->
-              <button id="withdrawSavingBtn" style="background: #4a1a20; border: 1px solid #8b1a2b; color: #ef5350;"><i class="fas fa-minus"></i> 取出</button>
-              <button id="addSavingBtn"><i class="fas fa-plus"></i> 存入</button>
+              <button id="savePlanBtn" style="flex:1;">禁忌 · 保存</button>
+              <button id="cancelPlanBtn" style="background:#4a1a20; flex:0.6;">取消</button>
             </div>
           </div>
 
           <div style="margin-top: 1.5rem; border-top: 1px dashed #5a1a25; padding-top: 1.2rem;">
             <label style="font-size:0.75rem; font-weight:500; color:#b08a8a;">
-              <i class="fas fa-gem" style="color:#f5c542;"></i> 存入水晶（攒钱）
+              <i class="fas fa-gem" style="color:#f5c542;"></i> 存入或取出水晶
             </label>
             <div class="plan-input-group">
               <input type="number" id="saveAmountInput" placeholder="金额" min="0" step="10">
+              <button id="withdrawSavingBtn" style="background: #4a1a20; border: 1px solid #8b1a2b; color: #ef5350;"><i class="fas fa-minus"></i> 取出</button>
               <button id="addSavingBtn"><i class="fas fa-plus"></i> 存入</button>
             </div>
           </div>
@@ -935,14 +934,13 @@
 
   <script>
     (function() {
-      // 1. 启动时从本地存储读取数据
+      // 1. 启动时从本地存储读取数据，默认数据做后备
       let records = JSON.parse(localStorage.getItem('flandre_records')) || [
         { id: Date.now() - 20000, type: 'expense', amount: 58.5, description: '红莓蛋糕', category: '餐饮' },
         { id: Date.now() - 100000, type: 'income', amount: 3000, description: '蕾米莉亚姐姐给的', category: '工资' }
       ];
       
       let savingPlan = JSON.parse(localStorage.getItem('flandre_savingPlan')) || { target: 2000, saved: 350 };
-      
       let currentType = 'income';
 
       // 2. 保存数据的工具函数
@@ -951,6 +949,7 @@
         localStorage.setItem('flandre_savingPlan', JSON.stringify(savingPlan));
       }
 
+      // 3. 获取 DOM 元素
       const incomeTypeBtn = document.getElementById('incomeTypeBtn');
       const expenseTypeBtn = document.getElementById('expenseTypeBtn');
       const amountInput = document.getElementById('amountInput');
@@ -976,8 +975,9 @@
       const cancelPlanBtn = document.getElementById('cancelPlanBtn');
       const saveAmountInput = document.getElementById('saveAmountInput');
       const addSavingBtn = document.getElementById('addSavingBtn');
-      const withdrawSavingBtn = document.getElementById('withdrawSavingBtn');
+      const withdrawSavingBtn = document.getElementById('withdrawSavingBtn'); // 新增取出按钮
 
+      // 4. 格式化与计算函数
       function formatMoney(value) {
         return '¥' + Number(value).toFixed(2);
       }
@@ -991,18 +991,19 @@
         return { income: totalIncome, expense: totalExpense, balance: totalIncome - totalExpense };
       }
 
-      function updateBalanceDisplay() {
-        const { income, expense, balance } = calculateTotals();
-        balanceDisplay.textContent = formatMoney(balance);
-        totalIncomeDisplay.textContent = formatMoney(income);
-        totalExpenseDisplay.textContent = formatMoney(expense);
-      }
-
       function escapeHtml(text) {
         if (!text) return '';
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+      }
+
+      // 5. UI 渲染函数
+      function updateBalanceDisplay() {
+        const { income, expense, balance } = calculateTotals();
+        balanceDisplay.textContent = formatMoney(balance);
+        totalIncomeDisplay.textContent = formatMoney(income);
+        totalExpenseDisplay.textContent = formatMoney(expense);
       }
 
       function renderRecords() {
@@ -1064,6 +1065,7 @@
         updateSavingPlanUI();
       }
 
+      // 6. 事件监听：收入/支出切换
       function setType(type) {
         currentType = type;
         if (type === 'income') {
@@ -1082,6 +1084,7 @@
       incomeTypeBtn.addEventListener('click', () => setType('income'));
       expenseTypeBtn.addEventListener('click', () => setType('expense'));
 
+      // 7. 事件监听：记账逻辑
       addRecordBtn.addEventListener('click', () => {
         const amountRaw = amountInput.value.trim();
         const description = descInput.value.trim();
@@ -1103,10 +1106,11 @@
 
         amountInput.value = '';
         descInput.value = '';
-        saveData(); // 👈 新增这一行，每次记账后保存
+        saveData(); // 记账后保存数据
         refreshAllUI();
       });
 
+      // 8. 事件监听：省钱计划目标编辑
       editPlanBtn.addEventListener('click', () => {
         planDisplayArea.classList.add('hidden');
         planEditArea.classList.remove('hidden');
@@ -1126,19 +1130,26 @@
         if (isNaN(newTarget) || newTarget <= 0) { alert('目标必须大于0'); return; }
 
         savingPlan.target = newTarget;
-        saveData(); // 👈 新增这一行
+        saveData(); // 修改目标后保存
         updateSavingPlanUI();
         planDisplayArea.classList.remove('hidden');
         planEditArea.classList.add('hidden');
         newPlanTargetInput.value = '';
       });
 
+      // 9. 事件监听：存入与取出水晶
       addSavingBtn.addEventListener('click', () => {
         const amountRaw = saveAmountInput.value.trim();
         if (!amountRaw) { alert('请输入要存入的水晶数量'); return; }
         const amount = parseFloat(amountRaw);
         if (isNaN(amount) || amount <= 0) { alert('金额必须大于0'); return; }
-// 新增：取出节省金额
+
+        savingPlan.saved += amount;
+        saveAmountInput.value = '';
+        saveData(); // 存入后保存
+        updateSavingPlanUI();
+      });
+
       withdrawSavingBtn.addEventListener('click', () => {
         const amountRaw = saveAmountInput.value.trim();
         if (!amountRaw) { alert('请输入要取出的水晶数量'); return; }
@@ -1152,60 +1163,24 @@
 
         savingPlan.saved -= amount;
         saveAmountInput.value = '';
-        saveData(); // 保存数据
+        saveData(); // 取出后保存
         updateSavingPlanUI();
       });
 
-        savingPlan.saved += amount;
-        saveAmountInput.value = '';
-        saveData(); // 👈 新增这一行
-        updateSavingPlanUI();
-      });
-
-        amountInput.addEventListener('keypress', (e) => {
+      // 10. 键盘回车快捷键
+      amountInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') { e.preventDefault(); addRecordBtn.click(); }
       });
       descInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') { e.preventDefault(); addRecordBtn.click(); }
       });
 
-      // ========== 存入逻辑 ==========
-      addSavingBtn.addEventListener('click', () => {
-        const amountRaw = saveAmountInput.value.trim();
-        if (!amountRaw) { alert('请输入要存入的水晶数量'); return; }
-        const amount = parseFloat(amountRaw);
-        if (isNaN(amount) || amount <= 0) { alert('金额必须大于0'); return; }
-
-        savingPlan.saved += amount;
-        saveAmountInput.value = '';
-        saveData(); 
-        updateSavingPlanUI();
-      });
-
-      // ========== 取出逻辑 ==========
-      withdrawSavingBtn.addEventListener('click', () => {
-        const amountRaw = saveAmountInput.value.trim();
-        if (!amountRaw) { alert('请输入要取出的水晶数量'); return; }
-        const amount = parseFloat(amountRaw);
-        if (isNaN(amount) || amount <= 0) { alert('金额必须大于0'); return; }
-        
-        if (amount > savingPlan.saved) {
-          alert(`水晶不够啦！目前只攒了 ${formatMoney(savingPlan.saved)}`);
-          return;
-        }
-
-        savingPlan.saved -= amount;
-        saveAmountInput.value = '';
-        saveData(); 
-        updateSavingPlanUI();
-      });
-
-      // 初始刷新UI
+      // 11. 页面加载初始化
       refreshAllUI();
       setType('income');
     })();
 
-    // 注册 Service Worker
+    // 12. 注册 Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./service-worker.js')
