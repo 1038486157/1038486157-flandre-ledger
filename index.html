@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>芙兰朵露的禁忌账本 · 红魔馆省钱计划</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="禁忌账本">
+  <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
+  <meta name="theme-color" content="#c41e3a">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: #1a0a0a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .flandre-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .flandre-silhouette {
+      position: absolute;
+      bottom: -5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 520px;
+      height: 720px;
+      opacity: 0.13;
+      filter: blur(1.5px);
+    }
+
+    .flandre-silhouette .head {
+      position: absolute;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 130px;
+      background: #c41e3a;
+      border-radius: 50% 50% 45% 45%;
+    }
+
+    .flandre-silhouette .hat {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 50px;
+      background: #8b0000;
+      border-radius: 50% 50% 20% 20%;
+    }
+    .flandre-silhouette .hat::before {
+      content: "";
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 30px;
+      background: #8b0000;
+      border-radius: 50% 50% 0 0;
+    }
+    .flandre-silhouette .hat::after {
+      content: "✦";
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 24px;
+      color: #f5c542;
+    }
+
+    .flandre-silhouette .twin-tail-left,
+    .flandre-silhouette .twin-tail-right {
+      position: absolute;
+      top: 150px;
+      width: 55px;
+      height: 320px;
+      background: #d4a843;
+      border-radius: 40% 40% 50% 50%;
+      opacity: 0.9;
+    }
+    .flandre-silhouette .twin-tail-left {
+      left: 90px;
+      transform: rotate(8deg);
+      transform-origin: top center;
+    }
+    .flandre-silhouette .twin-tail-right {
+      right: 90px;
+      transform: rotate(-8deg);
+      transform-origin: top center;
+    }
+
+    .flandre-silhouette .dress {
+      position: absolute;
+      top: 180px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 380px;
+      background: #a31f34;
+      border-radius: 30% 30% 50% 50%;
+      clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    }
+
+    .flandre-silhouette .wing-left,
+    .flandre-silhouette .wing-right {
+      position: absolute;
+      top: 200px;
+      width: 160px;
+      height: 280px;
+      opacity: 0.7;
+    }
+    .flandre-silhouette .wing-left {
+      left: -40px;
+      background: radial-gradient(ellipse at right, #e91e63 0%, transparent 70%);
+      clip-path: polygon(100% 0%, 60% 15%, 80% 40%, 50% 55%, 75% 75%, 40% 90%, 100% 100%);
+    }
+    .flandre-silhouette .wing-right {
+      right: -40px;
+      background: radial-gradient(ellipse at left, #9c27b0 0%, transparent 70%);
+      clip-path: polygon(0% 0%, 40% 15%, 20% 40%, 50% 55%, 25% 75%, 60% 90%, 0% 100%);
+    }
+
+    .flandre-silhouette .crystals {
+      position: absolute;
+      top: 190px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 340px;
+      height: 300px;
+    }
+    .crystals::before {
+      content: "✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      font-size: 18px;
+      color: #f5c542;
+      letter-spacing: 18px;
+      text-align: center;
+      line-height: 2.2;
+      text-shadow: 0 0 6px rgba(245, 197, 66, 0.5);
+    }
+    .crystals::after {
+      content: "✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      font-size: 18px;
+      color: #ff9800;
+      letter-spacing: 18px;
+      text-align: center;
+      line-height: 2.2;
+      text-shadow: 0 0 6px rgba(255, 152, 0, 0.5);
+    }
+
+    .flandre-name-tag {
+      position: fixed;
+      top: 20px;
+      left: 24px;
+      z-index: 1;
+      font-size: 0.7rem;
+      color: rgba(196, 30, 58, 0.35);
+      letter-spacing: 6px;
+      font-weight: 700;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      pointer-events: none;
+    }
+
+    .app-container {
+      max-width: 1100px;
+      width: 100%;
+      background: #2a1215;
+      border-radius: 2rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(200, 50, 50, 0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+      border: 1px solid #5a1a1a;
+    }
+
+    .header {
+      padding: 1.8rem 2rem 1rem 2rem;
+      background: linear-gradient(135deg, #3d0e14 0%, #2a0a0e 100%);
+      border-bottom: 2px solid #a31f34;
+      position: relative;
+    }
+
+    .header::after {
+      content: "✧ 七色水晶 ✧";
+      position: absolute;
+      right: 2rem;
+      top: 1.5rem;
+      font-size: 0.7rem;
+      color: rgba(245, 197, 66, 0.5);
+      letter-spacing: 3px;
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f5e6d3;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-shadow: 0 0 20px rgba(200, 50, 50, 0.3);
+    }
+
+    .header h1 i {
+      color: #c41e3a;
+      font-size: 2rem;
+      filter: drop-shadow(0 0 6px rgba(200, 30, 50, 0.6));
+    }
+
+    .header h1 .flandre-tag {
+      font-size: 0.7rem;
+      background: #c41e3a;
+      color: #fff5e6;
+      padding: 0.15rem 0.6rem;
+      border-radius: 2rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-left: 0.5rem;
+    }
+
+    .header p {
+      color: #b08a8a;
+      margin-top: 0.3rem;
+      font-weight: 400;
+      font-size: 0.85rem;
+    }
+
+    .balance-card {
+      background: linear-gradient(135deg, #3d0e14, #1f0508);
+      color: #f5e6d3;
+      margin: 1.5rem 2rem 0 2rem;
+      padding: 1.6rem 2rem;
+      border-radius: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(200, 50, 50, 0.3);
+      border: 1px solid #6b1a25;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .balance-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        #00bcd4, #2196f3, #9c27b0, #e91e63, #ff9800, #ffeb3b, #8bc34a, #00bcd4);
+    }
+
+    .balance-info h3 {
+      font-size: 0.8rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #b08a8a;
+    }
+
+    .balance-amount {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-top: 0.2rem;
+      color: #f5e6d3;
+      text-shadow: 0 0 30px rgba(200, 30, 50, 0.4);
+    }
+
+    .balance-amount small {
+      font-size: 1.2rem;
+      font-weight: 400;
+      opacity: 0.8;
+      color: #c41e3a;
+    }
+
+    .balance-stats {
+      display: flex;
+      gap: 1.5rem;
+      background: rgba(200, 30, 50, 0.12);
+      padding: 0.8rem 1.5rem;
+      border-radius: 2rem;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(200, 30, 50, 0.25);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      color: #b08a8a;
+      letter-spacing: 1px;
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 0.2rem;
+    }
+
+    .stat-value.income {
+      color: #8bc34a;
+    }
+
+    .stat-value.expense {
+      color: #ef5350;
+    }
+
+    .main-content {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 1.5rem 2rem 2rem 2rem;
+      gap: 2rem;
+    }
+
+    .left-panel {
+      flex: 1.4;
+      min-width: 300px;
+    }
+
+    .right-panel {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .card {
+      background: #2a1215;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      border: 1px solid #4a1a20;
+      margin-bottom: 1.8rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #f5e6d3;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-title i {
+      color: #c41e3a;
+      font-size: 1.1rem;
+    }
+
+    .card-title .sub-tag {
+      font-size: 0.65rem;
+      background: #4a1a20;
+      color: #f5c542;
+      padding: 0.15rem 0.5rem;
+      border-radius: 2rem;
+      margin-left: auto;
+      font-weight: 400;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #b08a8a;
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.5px;
+    }
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .input-icon {
+      background: #3d0e14;
+      padding: 0.7rem 0.9rem;
+      border-radius: 0.8rem;
+      color: #c41e3a;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #5a1a25;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1.5px solid #4a1a20;
+      border-radius: 0.8rem;
+      font-size: 0.95rem;
+      outline: none;
+      transition: 0.2s;
+      background: #1f0508;
+      font-weight: 500;
+      color: #f5e6d3;
+    }
+
+    input::placeholder {
+      color: #6b3a3a;
+    }
+
+    input:focus, select:focus {
+      border-color: #c41e3a;
+      box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.15);
+    }
+
+    select option {
+      background: #1f0508;
+      color: #f5e6d3;
+    }
+
+    .type-toggle {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .type-btn {
+      flex: 1;
+      padding: 0.7rem;
+      border-radius: 0.8rem;
+      border: 1.5px solid #4a1a20;
+      background: #1f0508;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: #b08a8a;
+    }
+
+    .type-btn i {
+      font-size: 0.9rem;
+    }
+
+    .type-btn.active-income {
+      background: #1a3a1a;
+      border-color: #8bc34a;
+      color: #8bc34a;
+      box-shadow: 0 0 20px rgba(139, 195, 74, 0.15);
+    }
+
+    .type-btn.active-expense {
+      background: #3d0e14;
+      border-color: #c41e3a;
+      color: #ef5350;
+      box-shadow: 0 0 20px rgba(196, 30, 58, 0.2);
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, #8b1a2b, #c41e3a);
+      color: #fff5e6;
+      border: none;
+      padding: 0.9rem;
+      border-radius: 0.9rem;
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 0.6rem;
+      box-shadow: 0 8px 24px -4px rgba(196, 30, 58, 0.4);
+      letter-spacing: 1px;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #a31f34, #e02a4a);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .records-list {
+      max-height: 340px;
+      overflow-y: auto;
+      margin-top: 0.5rem;
+      padding-right: 0.2rem;
+    }
+
+    .record-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 0.5rem;
+      border-bottom: 1px solid #3a151a;
+      animation: fadeIn 0.2s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .record-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .record-icon {
+      width: 2.3rem;
+      height: 2.3rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .record-icon.income-bg {
+      background: #1a3a1a;
+      color: #8bc34a;
+      border: 1px solid #2a5a2a;
+    }
+
+    .record-icon.expense-bg {
+      background: #3d0e14;
+      color: #ef5350;
+      border: 1px solid #6b1a25;
+    }
+
+    .record-desc {
+      font-weight: 500;
+      color: #f5e6d3;
+      font-size: 0.95rem;
+    }
+
+    .record-category {
+      font-size: 0.7rem;
+      color: #8a6a6a;
+      margin-top: 0.1rem;
+    }
+
+    .record-amount {
+      font-weight: 700;
+      font-size: 1rem;
+      white-space: nowrap;
+    }
+
+    .record-amount.income {
+      color: #8bc34a;
+    }
+
+    .record-amount.expense {
+      color: #ef5350;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2rem 0;
+      color: #6b3a3a;
+      font-size: 0.9rem;
+    }
+
+    .saving-plan-card {
+      background: linear-gradient(145deg, #2a1215, #1f0508);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid #5a1a25;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .saving-plan-card::after {
+      content: "✧";
+      position: absolute;
+      bottom: -10px;
+      right: -10px;
+      font-size: 100px;
+      color: rgba(196, 30, 58, 0.06);
+      pointer-events: none;
+    }
+
+    .plan-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .plan-header h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #f5e6d3;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .plan-header h3 i {
+      color: #f5c542;
+    }
+
+    .plan-edit {
+      color: #f5c542;
+      background: rgba(245, 197, 66, 0.1);
+      border: 1px solid rgba(245, 197, 66, 0.3);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.3rem 0.8rem;
+      border-radius: 2rem;
+      transition: background 0.2s;
+    }
+
+    .plan-edit:hover {
+      background: rgba(245, 197, 66, 0.2);
+    }
+
+    .plan-progress {
+      margin: 1.2rem 0;
+    }
+
+    .progress-bar-bg {
+      height: 0.8rem;
+      background: #1f0508;
+      border-radius: 1rem;
+      overflow: hidden;
+      margin: 0.6rem 0;
+      border: 1px solid #4a1a20;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, 
+        #00bcd4, #2196f3, #9c27b0, #e91e63, #ff9800, #ffeb3b, #8bc34a);
+      border-radius: 1rem;
+      width: 0%;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 12px rgba(196, 30, 58, 0.5);
+    }
+
+    .plan-numbers {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: #b08a8a;
+    }
+
+    .plan-numbers strong {
+      font-weight: 700;
+      color: #f5e6d3;
+    }
+
+    .plan-message {
+      font-size: 0.85rem;
+      color: #f5c542;
+      background: rgba(196, 30, 58, 0.1);
+      padding: 0.8rem 1rem;
+      border-radius: 1rem;
+      border-left: 4px solid #c41e3a;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    .plan-input-group {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .plan-input-group input {
+      padding: 0.6rem 1rem;
+    }
+
+    .plan-input-group button {
+      background: #c41e3a;
+      color: #fff5e6;
+      border: none;
+      padding: 0 1.2rem;
+      border-radius: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .plan-input-group button:hover {
+      background: #e02a4a;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .records-list::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .records-list::-webkit-scrollbar-track {
+      background: #1f0508;
+      border-radius: 10px;
+    }
+
+    .records-list::-webkit-scrollbar-thumb {
+      background: #5a1a25;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 750px) {
+      .main-content {
+        flex-direction: column;
+      }
+      .balance-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      .balance-stats {
+        width: 100%;
+        justify-content: space-around;
+      }
+      .flandre-silhouette {
+        width: 340px;
+        height: 480px;
+        opacity: 0.08;
+        bottom: -10%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="flandre-bg">
+    <div class="flandre-silhouette">
+      <div class="hat"></div>
+      <div class="head"></div>
+      <div class="twin-tail-left"></div>
+      <div class="twin-tail-right"></div>
+      <div class="crystals"></div>
+      <div class="wing-left"></div>
+      <div class="wing-right"></div>
+      <div class="dress"></div>
+    </div>
+  </div>
+
+  <div class="flandre-name-tag">FLANDRE SCARLET</div>
+
+  <div class="app-container">
+    <div class="header">
+      <h1>
+        <i class="fas fa-heart-broken"></i> 芙兰朵露的禁忌账本
+        <span class="flandre-tag">妹様</span>
+      </h1>
+      <p>「破坏一切程度的能力」用来记账 · 红魔馆地下省钱计划</p>
+    </div>
+
+    <div class="balance-card">
+      <div class="balance-info">
+        <h3><i class="fas fa-skull" style="margin-right:0.3rem;"></i> 禁忌余额</h3>
+        <div class="balance-amount" id="balanceDisplay">¥0.00</div>
+      </div>
+      <div class="balance-stats">
+        <div class="stat-item">
+          <div class="stat-label">吸血（收入）</div>
+          <div class="stat-value income" id="totalIncomeDisplay">¥0.00</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">破坏（支出）</div>
+          <div class="stat-value expense" id="totalExpenseDisplay">¥0.00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="left-panel">
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-book-dead"></i> 禁忌记录
+            <span class="sub-tag">红魔乡 EX</span>
+          </div>
+          
+          <div class="type-toggle">
+            <button id="incomeTypeBtn" class="type-btn active-income" data-type="income">
+              <i class="fas fa-tint"></i> 吸血 · 收入
+            </button>
+            <button id="expenseTypeBtn" class="type-btn" data-type="expense">
+              <i class="fas fa-explosion"></i> 破坏 · 支出
+            </button>
+          </div>
+
+          <div class="form-group">
+            <label><i class="fas fa-gem" style="color:#c41e3a;margin-right:0.3rem;"></i> 金额（水晶）</label>
+            <div class="input-wrapper">
+              <span class="input-icon"><i class="fas fa-yen-sign"></i></span>
+              <input type="number" id="amountInput" placeholder="0.00" min="0" step="0.01">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label><i class="fas fa-feather" style="color:#c41e3a;margin-right:0.3rem;"></i> 描述</label>
+            <div class="input-wrapper">
+              <span class="input-icon"><i class="fas fa-tag"></i></span>
+              <input type="text" id="descInput" placeholder="例如：蕾米莉亚给的零花钱、红莓陷阱">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label><i class="fas fa-list" style="color:#c41e3a;margin-right:0.3rem;"></i> 禁忌分类</label>
+            <div class="input-wrapper">
+              <span class="input-icon"><i class="fas fa-scroll"></i></span>
+              <select id="categorySelect">
+                <option value="餐饮">🍰 蛋糕与红茶</option>
+                <option value="购物">💎 水晶收藏</option>
+                <option value="交通">🚪 红魔馆闲逛</option>
+                <option value="娱乐">🎀 蕾米莉亚姐姐</option>
+                <option value="工资">🩸 吸血所得</option>
+                <option value="其他">📦 其他禁忌</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn-primary" id="addRecordBtn">
+            <i class="fas fa-bomb"></i> 发动 · 记录禁忌
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-clock-rotate-left"></i> 禁忌历史
+            <span class="sub-tag">U.N. Owen</span>
+          </div>
+          <div class="records-list" id="recordsList">
+            <div class="empty-state">「什么都没有哦……就像笼中鸟一样」</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <div class="saving-plan-card">
+          <div class="plan-header">
+            <h3><i class="fas fa-lock"></i> 地下省钱计划</h3>
+            <button class="plan-edit" id="editPlanBtn"><i class="fas fa-pen"></i> 禁忌目标</button>
+          </div>
+
+          <div id="planDisplayArea">
+            <div style="font-size: 1.8rem; font-weight: 700; color: #f5e6d3;" id="planTargetDisplay">¥1,000</div>
+            <div class="plan-progress">
+              <div class="progress-bar-bg">
+                <div class="progress-fill" id="planProgressFill" style="width: 0%;"></div>
+              </div>
+              <div class="plan-numbers">
+                <span>已攒 <strong id="savedAmountDisplay">¥0</strong></span>
+                <span>目标 <strong id="planTargetSmallDisplay">¥1,000</strong></span>
+              </div>
+            </div>
+            <div class="plan-message" id="planMessage">
+              「笼中鸟，笼中鸟，什么时候出来呢？」
+            </div>
+          </div>
+
+          <div id="planEditArea" class="hidden">
+            <div class="form-group" style="margin-bottom: 0.5rem;">
+              <label>设定新的禁忌目标</label>
+              <div class="input-wrapper">
+                <span class="input-icon"><i class="fas fa-bullseye"></i></span>
+                <input type="number" id="newPlanTargetInput" placeholder="例如: 4950" min="0" step="100">
+              </div>
+            </div>
+            <div class="plan-input-group">
+              <input type="number" id="saveAmountInput" placeholder="金额" min="0" step="10">
+              <!-- 新增取出按钮 -->
+              <button id="withdrawSavingBtn" style="background: #4a1a20; border: 1px solid #8b1a2b; color: #ef5350;"><i class="fas fa-minus"></i> 取出</button>
+              <button id="addSavingBtn"><i class="fas fa-plus"></i> 存入</button>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem; border-top: 1px dashed #5a1a25; padding-top: 1.2rem;">
+            <label style="font-size:0.75rem; font-weight:500; color:#b08a8a;">
+              <i class="fas fa-gem" style="color:#f5c542;"></i> 存入水晶（攒钱）
+            </label>
+            <div class="plan-input-group">
+              <input type="number" id="saveAmountInput" placeholder="金额" min="0" step="10">
+              <button id="addSavingBtn"><i class="fas fa-plus"></i> 存入</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // 1. 启动时从本地存储读取数据
+      let records = JSON.parse(localStorage.getItem('flandre_records')) || [
+        { id: Date.now() - 20000, type: 'expense', amount: 58.5, description: '红莓蛋糕', category: '餐饮' },
+        { id: Date.now() - 100000, type: 'income', amount: 3000, description: '蕾米莉亚姐姐给的', category: '工资' }
+      ];
+      
+      let savingPlan = JSON.parse(localStorage.getItem('flandre_savingPlan')) || { target: 2000, saved: 350 };
+      
+      let currentType = 'income';
+
+      // 2. 保存数据的工具函数
+      function saveData() {
+        localStorage.setItem('flandre_records', JSON.stringify(records));
+        localStorage.setItem('flandre_savingPlan', JSON.stringify(savingPlan));
+      }
+
+      const incomeTypeBtn = document.getElementById('incomeTypeBtn');
+      const expenseTypeBtn = document.getElementById('expenseTypeBtn');
+      const amountInput = document.getElementById('amountInput');
+      const descInput = document.getElementById('descInput');
+      const categorySelect = document.getElementById('categorySelect');
+      const addRecordBtn = document.getElementById('addRecordBtn');
+      const recordsList = document.getElementById('recordsList');
+
+      const balanceDisplay = document.getElementById('balanceDisplay');
+      const totalIncomeDisplay = document.getElementById('totalIncomeDisplay');
+      const totalExpenseDisplay = document.getElementById('totalExpenseDisplay');
+
+      const planTargetDisplay = document.getElementById('planTargetDisplay');
+      const planTargetSmallDisplay = document.getElementById('planTargetSmallDisplay');
+      const savedAmountDisplay = document.getElementById('savedAmountDisplay');
+      const planProgressFill = document.getElementById('planProgressFill');
+      const planMessage = document.getElementById('planMessage');
+      const editPlanBtn = document.getElementById('editPlanBtn');
+      const planDisplayArea = document.getElementById('planDisplayArea');
+      const planEditArea = document.getElementById('planEditArea');
+      const newPlanTargetInput = document.getElementById('newPlanTargetInput');
+      const savePlanBtn = document.getElementById('savePlanBtn');
+      const cancelPlanBtn = document.getElementById('cancelPlanBtn');
+      const saveAmountInput = document.getElementById('saveAmountInput');
+      const addSavingBtn = document.getElementById('addSavingBtn');
+      const withdrawSavingBtn = document.getElementById('withdrawSavingBtn');
+
+      function formatMoney(value) {
+        return '¥' + Number(value).toFixed(2);
+      }
+
+      function calculateTotals() {
+        let totalIncome = 0, totalExpense = 0;
+        records.forEach(r => {
+          if (r.type === 'income') totalIncome += r.amount;
+          else totalExpense += r.amount;
+        });
+        return { income: totalIncome, expense: totalExpense, balance: totalIncome - totalExpense };
+      }
+
+      function updateBalanceDisplay() {
+        const { income, expense, balance } = calculateTotals();
+        balanceDisplay.textContent = formatMoney(balance);
+        totalIncomeDisplay.textContent = formatMoney(income);
+        totalExpenseDisplay.textContent = formatMoney(expense);
+      }
+
+      function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      function renderRecords() {
+        if (records.length === 0) {
+          recordsList.innerHTML = '<div class="empty-state">「什么都没有哦……就像笼中鸟一样」</div>';
+          return;
+        }
+        let html = '';
+        records.forEach((record) => {
+          const isIncome = record.type === 'income';
+          const iconClass = isIncome ? 'income-bg' : 'expense-bg';
+          const icon = isIncome ? '<i class="fas fa-tint"></i>' : '<i class="fas fa-explosion"></i>';
+          const amountClass = isIncome ? 'income' : 'expense';
+          const sign = isIncome ? '+' : '-';
+          html += `
+            <div class="record-item">
+              <div class="record-left">
+                <div class="record-icon ${iconClass}">${icon}</div>
+                <div>
+                  <div class="record-desc">${escapeHtml(record.description || '无描述')}</div>
+                  <div class="record-category">${escapeHtml(record.category || '其他禁忌')}</div>
+                </div>
+              </div>
+              <div class="record-amount ${amountClass}">${sign}${formatMoney(record.amount).slice(1)}</div>
+            </div>
+          `;
+        });
+        recordsList.innerHTML = html;
+      }
+
+      function updateSavingPlanUI() {
+        const target = savingPlan.target;
+        const saved = savingPlan.saved;
+        const percent = target > 0 ? Math.min(100, (saved / target) * 100) : 0;
+
+        planTargetDisplay.textContent = formatMoney(target);
+        planTargetSmallDisplay.textContent = formatMoney(target);
+        savedAmountDisplay.textContent = formatMoney(saved);
+        planProgressFill.style.width = percent + '%';
+
+        let message = '';
+        if (saved === 0) {
+          message = '「笼中鸟，笼中鸟，什么时候出来呢？」';
+        } else if (saved >= target) {
+          message = '「禁忌·四重存在！目标达成，但破坏才刚刚开始。」';
+        } else if (percent >= 70) {
+          message = `「还差 ${formatMoney(target - saved)}……就要破坏掉这个目标了。」`;
+        } else if (percent >= 30) {
+          message = `「已攒 ${formatMoney(saved)}，就像水晶一样慢慢聚集。」`;
+        } else {
+          message = `「${formatMoney(saved)} 而已，离破坏还远着呢。」`;
+        }
+        planMessage.textContent = message;
+      }
+
+      function refreshAllUI() {
+        updateBalanceDisplay();
+        renderRecords();
+        updateSavingPlanUI();
+      }
+
+      function setType(type) {
+        currentType = type;
+        if (type === 'income') {
+          incomeTypeBtn.classList.add('active-income');
+          incomeTypeBtn.classList.remove('active-expense');
+          expenseTypeBtn.classList.remove('active-expense');
+          expenseTypeBtn.classList.remove('active-income');
+        } else {
+          expenseTypeBtn.classList.add('active-expense');
+          expenseTypeBtn.classList.remove('active-income');
+          incomeTypeBtn.classList.remove('active-income');
+          incomeTypeBtn.classList.remove('active-expense');
+        }
+      }
+
+      incomeTypeBtn.addEventListener('click', () => setType('income'));
+      expenseTypeBtn.addEventListener('click', () => setType('expense'));
+
+      addRecordBtn.addEventListener('click', () => {
+        const amountRaw = amountInput.value.trim();
+        const description = descInput.value.trim();
+        const category = categorySelect.value;
+
+        if (!amountRaw) { alert('请输入金额（水晶数量）'); return; }
+        const amount = parseFloat(amountRaw);
+        if (isNaN(amount) || amount <= 0) { alert('金额必须大于0'); return; }
+
+        const finalDesc = description || (currentType === 'income' ? '吸血所得' : '破坏支出');
+
+        records.unshift({
+          id: Date.now() + Math.random(),
+          type: currentType,
+          amount: amount,
+          description: finalDesc,
+          category: category
+        });
+
+        amountInput.value = '';
+        descInput.value = '';
+        saveData(); // 👈 新增这一行，每次记账后保存
+        refreshAllUI();
+      });
+
+      editPlanBtn.addEventListener('click', () => {
+        planDisplayArea.classList.add('hidden');
+        planEditArea.classList.remove('hidden');
+        newPlanTargetInput.value = savingPlan.target;
+      });
+
+      cancelPlanBtn.addEventListener('click', () => {
+        planDisplayArea.classList.remove('hidden');
+        planEditArea.classList.add('hidden');
+        newPlanTargetInput.value = '';
+      });
+
+      savePlanBtn.addEventListener('click', () => {
+        const newTargetRaw = newPlanTargetInput.value.trim();
+        if (!newTargetRaw) { alert('请输入目标金额'); return; }
+        const newTarget = parseFloat(newTargetRaw);
+        if (isNaN(newTarget) || newTarget <= 0) { alert('目标必须大于0'); return; }
+
+        savingPlan.target = newTarget;
+        saveData(); // 👈 新增这一行
+        updateSavingPlanUI();
+        planDisplayArea.classList.remove('hidden');
+        planEditArea.classList.add('hidden');
+        newPlanTargetInput.value = '';
+      });
+
+      addSavingBtn.addEventListener('click', () => {
+        const amountRaw = saveAmountInput.value.trim();
+        if (!amountRaw) { alert('请输入要存入的水晶数量'); return; }
+        const amount = parseFloat(amountRaw);
+        if (isNaN(amount) || amount <= 0) { alert('金额必须大于0'); return; }
+// 新增：取出节省金额
+      withdrawSavingBtn.addEventListener('click', () => {
+        const amountRaw = saveAmountInput.value.trim();
+        if (!amountRaw) { alert('请输入要取出的水晶数量'); return; }
+        const amount = parseFloat(amountRaw);
+        if (isNaN(amount) || amount <= 0) { alert('金额必须大于0'); return; }
+        
+        if (amount > savingPlan.saved) {
+          alert(`水晶不够啦！目前只攒了 ${formatMoney(savingPlan.saved)}`);
+          return;
+        }
+
+        savingPlan.saved -= amount;
+        saveAmountInput.value = '';
+        saveData(); // 保存数据
+        updateSavingPlanUI();
+      });
+
+        savingPlan.saved += amount;
+        saveAmountInput.value = '';
+        saveData(); // 👈 新增这一行
+        updateSavingPlanUI();
+      });
+
+        amountInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); addRecordBtn.click(); }
+      });
+      descInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); addRecordBtn.click(); }
+      });
+
+      // ========== 存入逻辑 ==========
+      addSavingBtn.addEventListener('click', () => {
+        const amountRaw = saveAmountInput.value.trim();
+        if (!amountRaw) { alert('请输入要存入的水晶数量'); return; }
+        const amount = parseFloat(amountRaw);
+        if (isNaN(amount) || amount <= 0) { alert('金额必须大于0'); return; }
+
+        savingPlan.saved += amount;
+        saveAmountInput.value = '';
+        saveData(); 
+        updateSavingPlanUI();
+      });
+
+      // ========== 取出逻辑 ==========
+      withdrawSavingBtn.addEventListener('click', () => {
+        const amountRaw = saveAmountInput.value.trim();
+        if (!amountRaw) { alert('请输入要取出的水晶数量'); return; }
+        const amount = parseFloat(amountRaw);
+        if (isNaN(amount) || amount <= 0) { alert('金额必须大于0'); return; }
+        
+        if (amount > savingPlan.saved) {
+          alert(`水晶不够啦！目前只攒了 ${formatMoney(savingPlan.saved)}`);
+          return;
+        }
+
+        savingPlan.saved -= amount;
+        saveAmountInput.value = '';
+        saveData(); 
+        updateSavingPlanUI();
+      });
+
+      // 初始刷新UI
+      refreshAllUI();
+      setType('income');
+    })();
+
+    // 注册 Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then((reg) => console.log('[PWA] SW 注册成功:', reg.scope))
+          .catch((err) => console.warn('[PWA] SW 注册失败:', err));
+      });
+    }
+  </script>
+</body>
+</html>

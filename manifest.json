@@ -1,0 +1,41 @@
+{
+  "id": "/index.html",
+  "name": "芙兰朵露的禁忌账本",
+  "short_name": "禁忌账本",
+  "description": "红魔馆地下省钱计划 · 芙兰朵露主题记账工具",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#1a0a0a",
+  "theme_color": "#c41e3a",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2851/2851875.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2851/2851875.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://picsum.photos/720/1280",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "https://picsum.photos/1280/720",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    }
+  ]
+}
