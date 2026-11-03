@@ -716,6 +716,7 @@
 
     .plan-input-group input {
       padding: 0.6rem 1rem;
+      min-width: 0;
     }
 
     .plan-input-group button {
@@ -728,6 +729,7 @@
       cursor: pointer;
       transition: background 0.2s;
       white-space: nowrap;
+      font-size: 0.85rem;
     }
 
     .plan-input-group button:hover {
@@ -923,6 +925,8 @@
             </label>
             <div class="plan-input-group">
               <input type="number" id="saveAmountInput" placeholder="金额" min="0" step="10">
+              <!-- 新增归零按钮 -->
+              <button id="resetSavingBtn" style="background: #3d0e14; border: 1px solid #8b1a2b; color: #ef5350;"><i class="fas fa-undo"></i> 归零</button>
               <button id="withdrawSavingBtn" style="background: #4a1a20; border: 1px solid #8b1a2b; color: #ef5350;"><i class="fas fa-minus"></i> 取出</button>
               <button id="addSavingBtn"><i class="fas fa-plus"></i> 存入</button>
             </div>
@@ -975,7 +979,8 @@
       const cancelPlanBtn = document.getElementById('cancelPlanBtn');
       const saveAmountInput = document.getElementById('saveAmountInput');
       const addSavingBtn = document.getElementById('addSavingBtn');
-      const withdrawSavingBtn = document.getElementById('withdrawSavingBtn'); // 新增取出按钮
+      const withdrawSavingBtn = document.getElementById('withdrawSavingBtn');
+      const resetSavingBtn = document.getElementById('resetSavingBtn'); // 新增归零按钮
 
       // 4. 格式化与计算函数
       function formatMoney(value) {
@@ -1167,7 +1172,22 @@
         updateSavingPlanUI();
       });
 
-      // 10. 键盘回车快捷键
+      // 10. 新增：归零逻辑
+      resetSavingBtn.addEventListener('click', () => {
+        if (savingPlan.saved === 0) {
+          alert('水晶已经是 0 了哦！');
+          return;
+        }
+        
+        const confirmReset = confirm('确定要将已攒的水晶全部归零吗？这个操作不可撤销哦！');
+        if (confirmReset) {
+          savingPlan.saved = 0;
+          saveData();
+          updateSavingPlanUI();
+        }
+      });
+
+      // 11. 键盘回车快捷键
       amountInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') { e.preventDefault(); addRecordBtn.click(); }
       });
@@ -1175,12 +1195,12 @@
         if (e.key === 'Enter') { e.preventDefault(); addRecordBtn.click(); }
       });
 
-      // 11. 页面加载初始化
+      // 12. 页面加载初始化
       refreshAllUI();
       setType('income');
     })();
 
-    // 12. 注册 Service Worker
+    // 13. 注册 Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./service-worker.js')

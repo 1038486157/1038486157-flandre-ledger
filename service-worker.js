@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v1.0.3';
+const CACHE_VERSION = 'v1.1.0';
 const CACHE_NAME = `flandre-ledger-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
