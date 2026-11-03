@@ -397,6 +397,20 @@
       font-weight: 400;
     }
 
+    /* 新增：小号操作按钮样式 */
+    .action-btn {
+      background: none;
+      border: 1px solid #4a1a20;
+      color: #ef5350;
+      padding: 0.2rem 0.6rem;
+      border-radius: 0.5rem;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-left: auto;
+    }
+    .action-btn:hover { background: rgba(239, 83, 80, 0.1); border-color: #ef5350; }
+
     .form-group {
       margin-bottom: 1rem;
     }
@@ -522,6 +536,25 @@
 
     .btn-primary:active {
       transform: scale(0.98);
+    }
+    
+    /* 新增：归零按钮（小） */
+    .btn-clear-amount {
+      background: #2a1215;
+      border: 1px solid #4a1a20;
+      color: #b08a8a;
+      padding: 0.4rem;
+      border-radius: 0.8rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-clear-amount:hover {
+      background: #3d0e14;
+      color: #ef5350;
+      border-color: #8b1a2b;
     }
 
     .records-list {
@@ -820,6 +853,7 @@
 
     <div class="main-content">
       <div class="left-panel">
+        <!-- 禁忌记录表单 -->
         <div class="card">
           <div class="card-title">
             <i class="fas fa-book-dead"></i> 禁忌记录
@@ -840,6 +874,10 @@
             <div class="input-wrapper">
               <span class="input-icon"><i class="fas fa-yen-sign"></i></span>
               <input type="number" id="amountInput" placeholder="0.00" min="0" step="0.01">
+              <!-- 新增：金额归零按键 -->
+              <button class="btn-clear-amount" id="clearAmountBtn" title="金额归零">
+                <i class="fas fa-eraser"></i>
+              </button>
             </div>
           </div>
 
@@ -871,10 +909,12 @@
           </button>
         </div>
 
+        <!-- 禁忌历史列表 -->
         <div class="card">
           <div class="card-title">
             <i class="fas fa-clock-rotate-left"></i> 禁忌历史
-            <span class="sub-tag">U.N. Owen</span>
+            <!-- 新增：清除历史按键 -->
+            <button class="action-btn" id="clearHistoryBtn"><i class="fas fa-trash-alt"></i> 清除历史</button>
           </div>
           <div class="records-list" id="recordsList">
             <div class="empty-state">「什么都没有哦……就像笼中鸟一样」</div>
@@ -925,7 +965,6 @@
             </label>
             <div class="plan-input-group">
               <input type="number" id="saveAmountInput" placeholder="金额" min="0" step="10">
-              <!-- 新增归零按钮 -->
               <button id="resetSavingBtn" style="background: #3d0e14; border: 1px solid #8b1a2b; color: #ef5350;"><i class="fas fa-undo"></i> 归零</button>
               <button id="withdrawSavingBtn" style="background: #4a1a20; border: 1px solid #8b1a2b; color: #ef5350;"><i class="fas fa-minus"></i> 取出</button>
               <button id="addSavingBtn"><i class="fas fa-plus"></i> 存入</button>
@@ -961,6 +1000,10 @@
       const categorySelect = document.getElementById('categorySelect');
       const addRecordBtn = document.getElementById('addRecordBtn');
       const recordsList = document.getElementById('recordsList');
+      
+      // 新增 DOM
+      const clearAmountBtn = document.getElementById('clearAmountBtn');
+      const clearHistoryBtn = document.getElementById('clearHistoryBtn');
 
       const balanceDisplay = document.getElementById('balanceDisplay');
       const totalIncomeDisplay = document.getElementById('totalIncomeDisplay');
@@ -980,7 +1023,7 @@
       const saveAmountInput = document.getElementById('saveAmountInput');
       const addSavingBtn = document.getElementById('addSavingBtn');
       const withdrawSavingBtn = document.getElementById('withdrawSavingBtn');
-      const resetSavingBtn = document.getElementById('resetSavingBtn'); // 新增归零按钮
+      const resetSavingBtn = document.getElementById('resetSavingBtn');
 
       // 4. 格式化与计算函数
       function formatMoney(value) {
@@ -1115,6 +1158,26 @@
         refreshAllUI();
       });
 
+      // 新增：金额归零
+      clearAmountBtn.addEventListener('click', () => {
+        amountInput.value = '';
+        amountInput.focus();
+      });
+
+      // 新增：清除所有历史记录
+      clearHistoryBtn.addEventListener('click', () => {
+        if (records.length === 0) {
+          alert('目前没有任何历史记录哦！');
+          return;
+        }
+        const confirmClear = confirm('⚠️ 警告：确定要清空所有的收入/支出记录吗？\n\n清空后余额将重新计算，该操作不可撤销！');
+        if (confirmClear) {
+          records = [];
+          saveData();
+          refreshAllUI();
+        }
+      });
+
       // 8. 事件监听：省钱计划目标编辑
       editPlanBtn.addEventListener('click', () => {
         planDisplayArea.classList.add('hidden');
@@ -1172,7 +1235,7 @@
         updateSavingPlanUI();
       });
 
-      // 10. 新增：归零逻辑
+      // 10. 省钱计划：归零逻辑
       resetSavingBtn.addEventListener('click', () => {
         if (savingPlan.saved === 0) {
           alert('水晶已经是 0 了哦！');
